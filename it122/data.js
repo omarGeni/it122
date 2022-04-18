@@ -29,20 +29,32 @@ export const getAll = countries.map((country => {
     return (`country: ${country.countryName}, capital: ${country.capital}, population: ${country.populationInMil} million, language: ${country.language}`)
 }))
 
-const countryVar = countries[0];
-export const getItem = (req) => {    
-        if(req === 'capital'){
-            return countryVar.capital;
-        }
-        else if(req === 'countryName'){
-            return countryVar.countryName;
-        }
-        else if(req === 'populationInMil'){
-            return countryVar.populationInMil;
-        } else if(req === 'language'){
-            return countryVar.language;
-        }
-        else {
-            console.log('Data is not found')
-        }
+
+export const getItem = (country) => {
+    if(country === (countryName=USA)){
+        return countries[0].countryName
+    }
 }
+
+// export const getItem = countries.find((country) => {
+//     return country.countryName === 'USA';
+// });
+
+
+// const countryVar = countries[0];
+// export const getItem = (req) => {    
+//         if(req === 'capital'){
+//             return countryVar.capital;
+//         }
+//         else if(req === 'countryName'){
+//             return countryVar.countryName;
+//         }
+//         else if(req === 'populationInMil'){
+//             return countryVar.populationInMil;
+//         } else if(req === 'language'){
+//             return countryVar.language;
+//         }
+//         else {
+//             console.log('Data is not found')
+//         }
+// }
