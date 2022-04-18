@@ -9,7 +9,7 @@ export let countries = [
         countryName: "Turkey",
         capital: "Ankara",
         populationInMil: 84,
-        language: "Turkish" 
+        language: "Turkish"
     },
     {
         countryName: "Kyrgyzstan",
@@ -22,7 +22,14 @@ export let countries = [
         capital: "Berlin",
         populationInMil: 83,
         language: "German"
+    },
+    {
+        countryName: "India",
+        capital: "New Delhi",
+        populationInMil: 1.38,
+        language: "Hindi-Urdu"
     }
+
 ];
 
 export const getAll = countries.map((country => {
@@ -31,30 +38,30 @@ export const getAll = countries.map((country => {
 
 
 export const getItem = (country) => {
-    if(country === (countryName=USA)){
-        return countries[0].countryName
+    if (country === 'countryname=usa') {
+        return "USA"
+    } else if (country === 'countryName=turkey') {
+        return "Turkey"
+    } else if (country === 'countryname=kyrgyzstan') {
+        return "Kyrgyzstan"
+    } else if (country === 'countryname=germany') {
+        return "Germany"
+    } else if (country ==='countryname=india') {
+        return "India"
+    } 
+    else {
+        console.log('Data is not found')
     }
 }
 
-// export const getItem = countries.find((country) => {
-//     return country.countryName === 'USA';
-// });
+// export const getItem = (country) => {
+//     if (countries.country === 'USA') {
+//         return "USA"
+//     } 
 
 
-// const countryVar = countries[0];
-// export const getItem = (req) => {    
-//         if(req === 'capital'){
-//             return countryVar.capital;
-//         }
-//         else if(req === 'countryName'){
-//             return countryVar.countryName;
-//         }
-//         else if(req === 'populationInMil'){
-//             return countryVar.populationInMil;
-//         } else if(req === 'language'){
-//             return countryVar.language;
-//         }
-//         else {
-//             console.log('Data is not found')
-//         }
+//     else {
+//         console.log('Data is not found')
+//     }
 // }
+
