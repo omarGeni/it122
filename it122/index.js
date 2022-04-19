@@ -6,8 +6,9 @@ import { parse } from "querystring";
 http.createServer((req, res) => {
     var path = req.url.toLowerCase();
     let url = req.url.split("?");
-    let query = url[1];
-    switch (path) {
+    let query = parse(url[1]);
+    console.log(query)
+    switch (url[0]) {
         case '/':
             res.writeHead(200, { 'Content-Type': 'text/plain' });
             res.end(JSON.stringify(getAll));
@@ -16,9 +17,9 @@ http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'text/plain' });
             res.end('About page');
             break;
-         case '/detail':
+        case '/detail':
             res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end(JSON.stringify(getItem(query)));
+            res.end(JSON.stringify(getItem(query['countryName'])));
             break;
         default:
             res.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -26,11 +27,3 @@ http.createServer((req, res) => {
             break;
     }
 }).listen(process.env.PORT || 3000);
-
-
-   // case '/detail':
-        //     res.writeHead(200, { 'Content-Type': 'text/plain' });
-        //     let url = req.url.split("?");
-        //     let query = parse(url[1]);
-        //     res.end(JSON.stringify(getItem));
-        //     break;npm start

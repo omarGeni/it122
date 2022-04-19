@@ -38,30 +38,7 @@ export const getAll = countries.map((country => {
 
 
 export const getItem = (country) => {
-    if (country === 'countryname=usa') {
-        return "USA"
-    } else if (country === 'countryName=turkey') {
-        return "Turkey"
-    } else if (country === 'countryname=kyrgyzstan') {
-        return "Kyrgyzstan"
-    } else if (country === 'countryname=germany') {
-        return "Germany"
-    } else if (country ==='countryname=india') {
-        return "India"
+   let arr = countries.find(name => name.countryName.toLocaleLowerCase() === country.toLowerCase());
+   return arr;
     } 
-    else {
-        console.log('Data is not found')
-    }
-}
-
-// export const getItem = (country) => {
-//     if (countries.country === 'USA') {
-//         return "USA"
-//     } 
-
-
-//     else {
-//         console.log('Data is not found')
-//     }
-// }
-
+    
