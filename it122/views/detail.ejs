@@ -1,0 +1,7 @@
+<h2>Home</h2>
+<hr>
+<h3>Countries</h3>
+
+<% countries.map((country => { %> 
+    <li><a href="/detail?countryName=<%=country.countryName %>"> <%= country.countrName %></li>
+    <% })); %>

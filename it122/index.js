@@ -29,20 +29,26 @@
 // }).listen(process.env.PORT || 3000);
 
 import http from 'http';
-import { getAll, getItem } from './data.js';
+import { getAll, getItem , countries} from './data.js';
 import { parse } from "querystring";
 import express from 'express';
+import path from 'path';
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('./public')); // set location for static files
 app.use(express.urlencoded()); //Parse URL-encoded bodies
+app.use(express.json())
 app.set('view engine', 'ejs');
 
+    // var path = req.url.toLowerCase();
+    // let url = req.url.split("?");
+    // let query = parse(url[1]);
 
 app.get('/', (req, res) => {
     res.type('text/html');
-    res.render('home', { countries: [] });
+    // res.render('home', {countries: [{countryName: JSON.stringify(countries)}] });
+    res.render('home', {countries: [{countryName: "USA"}] });
     // res.end("Home pagerrere")
     // res.sendFile('home.html');
 });
@@ -51,7 +57,7 @@ app.get('/', (req, res) => {
 app.get('/detail', (req, res) => {
     res.type('text/html');
     console.log(req.query);
-    res.end("Detail for " + req.query["countryName"])
+    res.end("Detail for " + req.query.countryName)
     // res.send('Home page');
 });
 
