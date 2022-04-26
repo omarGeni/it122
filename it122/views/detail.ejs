@@ -1,7 +1,18 @@
-<h2>Home</h2>
+<h2>Detail Page</h2>
 <hr>
-<h3>Countries</h3>
+<h3>Country: <%= countryName %></h3>
 
-<% countries.map((country => { %> 
-    <li><a href="/detail?countryName=<%=country.countryName %>"> <%= country.countrName %></li>
-    <% })); %>
+
+
+<!-- <% if (countryName) { %>
+    <h2>Book title: <%= countryName %></h2>
+  <% } else { %>
+    <h2>Please enter a countryName</h2>
+  <% } %> -->
+<% if (result) { %>
+    <li>Capital: <%= result.capital %>
+    <li>Population(in mil): <%= result.populationInMil %>
+    <li>Language: <%= result.language %>
+<% } else { %>
+    not found
+<% } %>

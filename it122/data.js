@@ -32,13 +32,20 @@ export let countries = [
 
 ];
 
-export const getAll = countries.map((country => {
-    return (`country: ${country.countryName}, capital: ${country.capital}, population: ${country.populationInMil} million, language: ${country.language}`)
-}))
+// export const getAll = countries.map(function(country) {
+//     return (`country: ${country.countryName}, capital: ${country.capital}, population: ${country.populationInMil} million, language: ${country.language}`)
+// })
+
+export const getAll = function(){
+    return countries
+}
 
 
 export const getItem = (country) => {
-   let arr = countries.find(name => name.countryName.toLocaleLowerCase() === country.toLowerCase());
+   let arr = countries.find(name => name.countryName.toLocaleLowerCase() === country.toLocaleLowerCase());
    return arr;
     } 
+// export const getItem = function(country){
+//     return countries.forEach(country => country.countryName, country.capital, country.populationInMil, country.language)
+// }
     

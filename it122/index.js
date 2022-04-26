@@ -41,24 +41,25 @@ app.use(express.urlencoded()); //Parse URL-encoded bodies
 app.use(express.json())
 app.set('view engine', 'ejs');
 
-    // var path = req.url.toLowerCase();
-    // let url = req.url.split("?");
-    // let query = parse(url[1]);
+
 
 app.get('/', (req, res) => {
     res.type('text/html');
-    // res.render('home', {countries: [{countryName: JSON.stringify(countries)}] });
-    res.render('home', {countries: [{countryName: "USA"}] });
+    res.render('home', {countries: getAll() });
+    // res.render('home', {countries: [{countryName: "USA"}] });
     // res.end("Home pagerrere")
     // res.sendFile('home.html');
 });
 
 // send plain text response
 app.get('/detail', (req, res) => {
+    // let url = req.url.split("?");
+    // let query = parse(url[1]);
     res.type('text/html');
-    console.log(req.query);
-    res.end("Detail for " + req.query.countryName)
-    // res.send('Home page');
+    let result =  getItem(req.query.countryName);
+    console.log(req.query.countryName)
+  // res.render('detail',  {countryName: JSON.stringify(getItem(req.query.countryName))});
+  res.render('detail',  {countryName: req.query.countryName, result: result});
 });
 
 // define 404 handler
