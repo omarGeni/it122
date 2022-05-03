@@ -36,16 +36,41 @@ export let countries = [
 //     return (`country: ${country.countryName}, capital: ${country.capital}, population: ${country.populationInMil} million, language: ${country.language}`)
 // })
 
-export const getAll = function(){
+export const getAll = function () {
     return countries
 }
 
 
 export const getItem = (country) => {
-   let arr = countries.find(name => name.countryName.toLocaleLowerCase() === country.toLocaleLowerCase());
-   return arr;
-    } 
+    let arr = countries.find(name => name.countryName.toLocaleLowerCase() === country.toLocaleLowerCase());
+    return arr;
+}
 // export const getItem = function(country){
 //     return countries.forEach(country => country.countryName, country.capital, country.populationInMil, country.language)
 // }
-    
+
+export const addItem = (country) => {
+    let arr = countries.find(name => name.countryName === country.countryName);
+    if (arr) {
+        console.log('operation failed')
+        return false
+    } else {
+        console.log('operation is successful')
+        countries.push(country);
+        return countries
+    };
+} 
+
+export const deleteItem = (country) => {
+    let arr = countries.filter(name => name.countryName !== country.countryName);
+    if(arr.length < countries.length){
+        console.log('operation is successful')
+        return arr;
+    }else if(arr.length === countries.length){
+        console.log('opration failed')
+        return arr;
+    }else{
+        console.log('opration failed')
+        return arr;
+    }
+} 
