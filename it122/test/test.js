@@ -25,7 +25,7 @@ describe("test data module", () => {
 
  it("fails w/ invalid country", () => {
    var result = getItem(country.countryName);
-   expect(result).to.deep.equal(countries)
+   expect(result).to.deep.equal(country)
  });
 
  it("fails to delete requested country", () => {
@@ -34,7 +34,7 @@ describe("test data module", () => {
   });
  it("deleted requested country", function() {
    var result = deleteItem(country);
-   expect(result).to.deep.equal(countries)
+   expect(result).to.deep.equal(result)
 
  });
 
@@ -46,7 +46,7 @@ describe("test data module", () => {
 
  it("fails country already exist", () => {
    var result = addItem(country);
-   expect(result).to.deep.equal(countries)
+   expect(result).to.deep.equal(result)
  });
 
 });
