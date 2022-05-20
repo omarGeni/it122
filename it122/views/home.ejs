@@ -1,16 +1,23 @@
-<h2>Home</h2>
-<hr>
-<h3>Countries</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <h2>Home</h2>
+    <hr>
+    <h3>Countries</h3>
+</head>
+<body>
+    <% Countries.forEach(function(country) { %> 
+        <li><a href="/api/detail?countryName=<%= country.countryName %>"> <%= country.countryName %></li>
+    <% }); %>
+</body>
+<script src="index.js"></script>
+</html>
 
-<!-- <% if (countries) { %>
-    <li>Country: <%= countries.countrName %>
-    <li>Capital: <%= countries.capital %>
-    <li>Population: <%= countries.populationInMil %>
-    <li>Language: <%= countries.language %>
-<% } else { %>
-    not found
-<% } %> -->
 
-<% countries.forEach(function(country) { %> 
-    <li><a href="/detail?countryName=<%= country.countryName %>"> <%= country.countryName %></li>
-<% }); %>
+
+
+

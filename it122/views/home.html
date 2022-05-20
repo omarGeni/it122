@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Countries</title>
+</head>
+
+<body>
+	<pre><% Countries.forEach(function(country) { %> 
+        <li><a href="/api/detail?countryName=<%= country.countryName %>"> <%= country.countryName %></li>
+    <% }); %></pre>
+</body>
+
+</html>

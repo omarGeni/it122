@@ -78,45 +78,147 @@
 //    });
 
 
+// Week 4-5 
+// import express from 'express';
+// import { Countries } from './Countries.js';
 
+// const app = express();
+// app.set('port', process.env.PORT || 3000);
+// app.use(express.static('./public')); // set location for static files
+// app.use(express.urlencoded()); //Parse URL-encoded bodies
+// app.use(express.json())
+// app.set('view engine', 'ejs');
+
+
+
+// app.get('/', (req, res, next) => {
+//     Countries.find({}).lean()
+//       .then((countries) => {
+//         // respond to browser only after db query completes
+//         res.render('home', { countries });
+//         console.log(req.query.countryName)
+//       })
+//       .catch(err => next(err))
+// });
+
+// // send plain text response
+// app.get('/detail', (req,res,next) => {
+//     // db query can use request parameters
+//     Countries.findOne({ countryName:req.query.countryName }).lean()
+//         .then((result) => {
+//             res.render('detail',  {countryName: req.query.countryName, result: result});
+//         })
+//         .catch(err => next(err));
+// });
+
+// // define 404 handler
+// app.use((req, res) => {
+//     res.type('text/plain');
+//     res.status(404);
+//     res.send('404 - Not found');
+// });
+
+// app.listen(app.get('port'), () => {
+//     console.log('Express started');
+//    });
+// import express from 'express';
+// import { Countries } from './Countries.js';
+
+// const app = express();
+// app.set('port', process.env.PORT || 3000);
+// app.use(express.static('./public')); // set location for static files
+// app.use(express.urlencoded()); //Parse URL-encoded bodies
+// app.use(express.json())
+// app.set('view engine', 'ejs');
+
+
+
+// app.get('/', (req, res, next) => {
+//     Countries.find({}).lean()
+//       .then((countries) => {
+//         // respond to browser only after db query completes
+//         res.render('home', { countries });
+//         console.log(req.query.countryName)
+//       })
+//       .catch(err => next(err))
+// });
+
+// // send plain text response
+// app.get('/detail', (req,res,next) => {
+//     // db query can use request parameters
+//     Countries.findOne({ countryName:req.query.countryName }).lean()
+//         .then((result) => {
+//             res.render('detail',  {countryName: req.query.countryName, result: result});
+//         })
+//         .catch(err => next(err));
+// });
+
+// // define 404 handler
+// app.use((req, res) => {
+//     res.type('text/plain');
+//     res.status(404);
+//     res.send('404 - Not found');
+// });
+
+// app.listen(app.get('port'), () => {
+//     console.log('Express started');
+//    });
+
+
+
+
+// Week 6
 import express from 'express';
 import { Countries } from './Countries.js';
+import cors from 'cors';
+// import res from 'express/lib/response';
 
 const app = express();
+
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('./public')); // set location for static files
 app.use(express.urlencoded()); //Parse URL-encoded bodies
 app.use(express.json())
 app.set('view engine', 'ejs');
 
-
-
+app.use('/api', cors());
+// app.use('/api', api);
 app.get('/', (req, res, next) => {
     Countries.find({}).lean()
-      .then((countries) => {
-        // respond to browser only after db query completes
-        res.render('home', { countries });
-        console.log(req.query.countryName)
+      .then((Countries) => {
+        res.render('home', { Countries });
       })
-      .catch(err => next(err))
+      .catch(err => next(err));
 });
 
-// send plain text response
-app.get('/detail', (req,res,next) => {
+app.get('/api/detail', (req,res, next) => {
     // db query can use request parameters
-    Countries.findOne({ countryName:req.query.countryName }).lean()
+    Countries.findOne({countryName:req.query.countryName }).lean()
         .then((result) => {
-            res.render('detail',  {countryName: req.query.countryName, result: result});
+            res.render('detail',   {countryName: req.query.countryName, result: result});
         })
         .catch(err => next(err));
 });
 
-// define 404 handler
-app.use((req, res) => {
-    res.type('text/plain');
-    res.status(404);
-    res.send('404 - Not found');
+
+
+app.get('/api/delete/:countryName', (req,res) => {
+    // db query can use request parameters
+    Countries.deleteOne({ countryName:req.params.countryName  }, () =>{
+        res.send(req.params.countryName + " successfully deleted!")
+    });
 });
+
+app.post('/api/add', (req, res, next) => {
+    const newCountry = {'countryName': req.body.countryName, 'capital': req.body.capital, 'population': req.body.populationInMil, 'language': req.body.language}
+
+    Countries.updateOne({'countryName': req.body.countryName}, newCountry, {upsert: true}, (err,result)=> {
+        if(err) return next(err);
+        console.log(result);
+        res.send(req.body.countryName + " country added")
+    })
+})
+
 
 app.listen(app.get('port'), () => {
     console.log('Express started');
