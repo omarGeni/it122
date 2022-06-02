@@ -2,7 +2,6 @@
 import express from 'express';
 import { Countries } from './Countries.js';
 import cors from 'cors';
-// import res from 'express/lib/response';
 
 const app = express();
 
@@ -13,11 +12,10 @@ app.use(express.json())
 app.set('view engine', 'ejs');
 
 app.use('/api', cors());
-// app.use('/api', api);
 app.get('/', (req, res, next) => {
     Countries.find({}).lean()
         .then((Countries) => {
-            res.render('home', { Countries });
+            res.render('react-home', { Countries: JSON.stringify(Countries)});
         })
         .catch(err => next(err));
 });
@@ -25,13 +23,13 @@ app.get('/', (req, res, next) => {
 app.get('/detail', (req,res,next) => {
         Countries.findOne({ countryName:req.query.countryName }).lean()
             .then((result) => {
-                res.render('detail',  {countryName: req.query.countryName, result: result});
+                res.render('detail',  {Countries: JSON.stringify(Countries), result: result});
+                // res.render('detail',  {countryName: req.query.countryName, result: result});
             })
             .catch(err => next(err));
 });
 
 app.get('/api/detail', (req, res, next) => {
-    // db query can use request parameters
     Countries.findOne({ countryName: req.query.countryName }).lean()
         .then((result) => {
              res.render('detail', { countryName: req.query.countryName, result: result });
@@ -51,7 +49,6 @@ app.get('/api/countries', (req, res) => {
 
 
 app.get('/api/delete/:countryName', (req, res) => {
-    // db query can use request parameters
     let countryName = req.params.countryName;
     Countries.deleteOne({countryName: countryName}, (err, result) => {
         if(result.deleteCount = 0) {
@@ -71,11 +68,7 @@ app.post('/api/add', (req, res, next) => {
         }else{
             res.status(500).json({"error message": "country not added"});
         }
-        // if(err) {
-        //     res.status(500).json({"error message": "country not added"});
-        // }else{
-        //     res.status(200).json({"message": `${countryName} was added`})
-        // }
+     
     })
 })
 

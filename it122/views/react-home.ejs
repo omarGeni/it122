@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>React App Demo</title>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+<div id="root"></div>
+<script type="text/babel">
+
+    const items = <%- Countries %>;
+    console.log(items)
+
+  
+    const showDetail = (props) => { 
+      // console.log(event.target.id)
+      // console.log(event.target.innerText)
+        window.location.href = "/detail?title=" + props.target.innerText;
+
+    }
+
+    const Country = (props) => {
+        // props is an array
+        console.log(props)
+        const listItems = props.data.map((item) =>
+        <li key={item._id} id={item._id}  onClick={props.clickHandler}>
+            {item.countryName}
+        </li>);
+        return <ul>{listItems}</ul>
+    }
+    ReactDOM.render(
+        <div><Country data={items} clickHandler={showDetail}/></div>,
+    document.getElementById('root'))
+
+// </script>
+</body>
+</html>
