@@ -14,16 +14,17 @@ app.set('view engine', 'ejs');
 app.use('/api', cors());
 app.get('/', (req, res, next) => {
     Countries.find({}).lean()
-        .then((Countries) => {
-            res.render('react-home', { Countries: JSON.stringify(Countries)});
+        .then((countries) => {
+            // res.render('react-home', { Countries: JSON.stringify(Countries)});
+            res.render('react-home-2', { Countries: JSON.stringify(countries)});
         })
         .catch(err => next(err));
 });
 
 app.get('/detail', (req,res,next) => {
         Countries.findOne({ countryName:req.query.countryName }).lean()
-            .then((result) => {
-                res.render('detail',  {Countries: JSON.stringify(Countries), result: result});
+            .then((country) => {
+                res.render('detail',  {countryName: req.query.countryName, result: country});
                 // res.render('detail',  {countryName: req.query.countryName, result: result});
             })
             .catch(err => next(err));

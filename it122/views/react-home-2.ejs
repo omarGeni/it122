@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <title>React App Demo</title>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Home Page</h2>
+    <hr>
+    <h3>Country
+    </h3>
+
+
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const Country = (props) => {
+            // props is an array
+            const listItems = props.data.map((item) =>
+                <li key={item._id} id={item._id} onClick={props.clickHandler}>
+                    {item.countryName}
+                </li>);
+            return <ul>{listItems}</ul>
+        }
+
+        const ItemDetail = (props) => {
+            return <div>
+                <h2>Details</h2><hr />
+                <form>
+                    Country: <input type="text" name="countryName" value={props.items.countryName || ""} onChange={props.handleChange} /><br />
+                    Capital: <input type="text" name="capital" value={props.items.capital || ""} onChange={props.handleChange} /><br />
+                    Population: <input type="text" name="populationInMil" value={props.items.populationInMil || ""} onChange={props.handleChange} /><br />
+                </form>
+                <button name="clear" onClick={props.clearForm}>Clear</button>&nbsp;
+                <button name="save" onClick={props.saveItem}>Save</button>&nbsp;
+            </div>
+        }
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    items: <%- Countries %>,
+                    currentItem: {}
+                };
+                // this.selectItem = this.selectItem.bind(this);
+                // this.handleChange = this.handleChange.bind(this);
+                this.clearForm = this.clearForm.bind(this);
+                this.saveItem = this.saveItem.bind(this);
+                // this.deleteItem = this.deleteItem.bind(this);
+            }
+
+            clearForm = () => {
+                this.setState({currentItem: {}})
+            }
+
+            saveItem = (e) => {
+                let newItem = this.state.currentItem;
+                newItem[e.target.name] = e.target.value;
+                // if(this.state.currentItem == {}) return
+                this.setState({currentItem: newItem});
+            }
+
+            showDetail = (event) => {
+                let country = event.target.innerText;
+                let newCountry = this.state.items.find((item) => item.countryName == country);
+                console.log(newCountry);
+                this.setState({ "currentItem": newCountry })
+            }
+
+            fieldChange = (event) => {
+                let newItem = this.state.currentItem;
+                newItem[event.target.name] = event.target.value;
+                this.setState({ currentItem: newItem })
+                console.log(event.target.value)
+            }
+
+            render() {
+                return (
+                    <div>
+                        <Country data={this.state.items} clickHandler={this.showDetail} />
+                        <ItemDetail
+                            items={this.state.currentItem}
+                            handleChange={this.fieldChange}
+                            clearForm = {this.clearForm}
+                            saveItem = {this.saveItem}
+                        />
+                    </div>);
+            }
+        }
+
+
+        ReactDOM.render(
+            <div><App /></div>,
+            // <div><Country data={Countries} clickHandler={showDetail}/></div>,
+            document.getElementById('root'))
+
+// </script>
+</body>
+
+</html>
