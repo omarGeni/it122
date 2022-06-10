@@ -16,7 +16,7 @@ app.get('/', (req, res, next) => {
     Countries.find({}).lean()
         .then((countries) => {
             // res.render('react-home', { Countries: JSON.stringify(Countries)});
-            res.render('react-home-2', { Countries: JSON.stringify(countries)});
+            res.render('react-home', { Countries: JSON.stringify(countries)});
         })
         .catch(err => next(err));
 });

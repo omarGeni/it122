@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>React App Demo</title>
 
@@ -11,33 +12,43 @@
 
 <body>
 
-<div id="root"></div>
-<script type="text/babel">
 
-    const items = <%- Countries %>;
-    console.log(items)
+    <h2>Home Page</h2>
+    <hr>
+    <h3>Country
+    </h3>
 
-  
-    const showDetail = (props) => { 
-      // console.log(event.target.id)
-      // console.log(event.target.innerText)
-        window.location.href = "/detail?title=" + props.target.innerText;
 
-    }
+    <div id="root"></div>
+    <script type="text/babel">
 
-    const Country = (props) => {
-        // props is an array
-        console.log(props)
-        const listItems = props.data.map((item) =>
-        <li key={item._id} id={item._id}  onClick={props.clickHandler}>
-            {item.countryName}
-        </li>);
-        return <ul>{listItems}</ul>
-    }
-    ReactDOM.render(
-        <div><Country data={items} clickHandler={showDetail}/></div>,
-    document.getElementById('root'))
+        const Countries = <%- Countries %>;
+        console.log(Countries)
+
+
+        const showDetail = (props) => {
+            // console.log(event.target.id)
+            // console.log(event.target.innerText)
+            window.location.href = "/detail?countryName=" + props.target.innerText;
+            // <a href={"/detail?title="+item.title}>
+
+
+        }
+
+        const Country = (props) => {
+            // props is an array
+            console.log(props)
+            const listItems = props.data.map((item) =>
+                <li key={item._id} id={item._id} onClick={props.clickHandler}>
+                    {item.countryName}
+                </li>);
+            return <ul>{listItems}</ul>
+        }
+        ReactDOM.render(
+            <div><Country data={Countries} clickHandler={showDetail} /></div>,
+            document.getElementById('root'))
 
 // </script>
 </body>
+
 </html>
